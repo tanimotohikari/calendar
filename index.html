@@ -7,11 +7,18 @@
 		<title>calendar</title>
 		<link rel='stylesheet' href='css/reset.css'>
 		<link rel='stylesheet' href='css/base.css'>
+		<link rel='stylesheet' href='css/layout.css'>
+		<link rel='stylesheet' href='css/module.css'>
 		<script src='script/jquery-3.4.0.min.js'></script>
 		<script src='script/calendar.js'></script>
 </head>
 <body>
-	<div id='calendar'></div>
+	<div class='l-contents'>
+		<div id='calendar' class='l-bottom'></div>
+		<div class='l-half-column clearfix'>
+			<p id='prev' class='btn l-align-center'>前の月</p>
+			<p id='next' class='btn l-align-center'>次の月</p>
+		</div>		
+	</div>
 </body>
-
 </html>

@@ -2,7 +2,10 @@ $(function() {
   const weeks = ['日', '月', '火', '水', '木', '金', '土'];
 	const date = new Date();
   const year = date.getFullYear();  // 年の取得
-	const month = date.getMonth() + 1; // 返される値は 0～11なので+1する
+  const month = date.getMonth() + 1; // 返される値は 0～11なので+1する
+  const $prev = $('#prev');
+  const $next = $('#next');
+  const $calendar = $('#calendar');
 
 	// ▼new Date()で第一引数に年、第二引数に月、第三引数に-1で月の最初,0で月の最後を取得できる
 	// うるう年も簡単に判定できる　
@@ -25,12 +28,13 @@ $(function() {
 	console.log(endDayCount);
 	console.log(startDay);
 
-  calendarHtml += '<h1>' + year + '/' + month + '</h1>';
-  calendarHtml += '<table>';
+  // TODO テンプレートリテラルで書き直す
+  calendarHtml += '<h1 class="l-bottom">' + year + '/' + month + '</h1>';
+  calendarHtml += '<table class="l-full">';
 
   // 曜日の行を作成
   for (let i = 0; i < weeks.length; i++) {
-    calendarHtml += '<td>' + weeks[i] + '</td>';
+    calendarHtml += `<td>${ weeks[i] }</td>`;
   }
 
   for (let w = 0; w < 6; w++) {
@@ -52,5 +56,16 @@ $(function() {
   }
   calendarHtml += '</table>';
 
-  document.querySelector('#calendar').innerHTML = calendarHtml;
+  $calendar.html(calendarHtml);
+
+  $next.on('click', nextMonth);
+  $prev.on('click', prevMonth);
+
+  function nextMonth() {
+    console.log('next!');
+  }
+
+  function prevMonth() {
+    console.log('prev!');
+  }
 });
