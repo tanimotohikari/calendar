@@ -13,9 +13,82 @@
 }
 
 /*----------
+  section
+----------*/
+.section {
+	margin-top: 20px;
+	/*上にコンテンツがないので上に隙間を開けるためのmargin*/
+}
+
+.section-container {
+	padding: 0 10px;
+}
+
+
+/*----------
+	calendar
+----------*/
+
+.calendar-header {
+	text-align: center;
+	font-weight: bold;
+	font-size: 20px;
+	background-color: #e9e9e9;
+	padding: 7px;
+	position: relative;
+	border: 1px solid #ddd;
+	border-bottom: none;
+}
+
+.calendar-table {
+	width: 100%;
+	border: 1px solid #ddd;
+}
+
+.calendar-table thead {
+	background-color: #f3f3f3;
+}
+
+.calendar-table th {
+	text-align: center;
+	padding: 4px 0;
+	font-size: 13px;
+	border-right: 1px solid #ddd;
+}
+
+.calendar-table td {
+	text-align: center;
+	line-height: 1.2;
+	padding: 14px 0;
+	font-size: 20px;
+	border-right: 1px solid #ddd;
+}
+
+.calendar-saturday {
+	color: #097aff;
+}
+
+.calendar-sunday {
+	color: #e74545;
+}
+
+
+/*----------
   utility
 ----------*/
 
 .text-light {
 	color: #ccc !important;
+}
+
+/*----------
+  state
+----------*/
+
+.is-disable {
+	/* pointer-events: none; */
+}
+
+.is-selected {
+	background-color: #f6ea79;
 }
