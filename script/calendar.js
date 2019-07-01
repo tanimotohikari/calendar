@@ -5,6 +5,7 @@ $(function() {
   const $next = $('#js-btn-next');
   const $calendar = $('#js-calendar');
 
+  let selectedDays = []; // 選択した希望日を格納する配列
   let currentYear = date.getFullYear();  // 年の取得
   let currentMonth = date.getMonth() + 1; // 返される値は 0～11なので+1する
   let lastMonthEndDate = new Date(currentYear, currentMonth - 1, 0) // 前月の最後の日
@@ -88,9 +89,20 @@ $(function() {
   }
 
   function selectDay() {
-    let value = $(this).text();
-    $(this).addClass('is-selected');
-    
+    let selectDay = $(this).text();
+    // 配列に同じ数値が入ってなかったら追加する
+    if(selectedDays.indexOf(selectDay) === -1) {
+      selectedDays.push(selectDay);
+      $(this).addClass('is-selected');
+    } else {
+      // 配列に同じ数値が入っていた場合は削除する
+      let position = selectedDays.indexOf(selectDay);
+      selectedDays.splice(position, 1); 
+      $(this).removeClass('is-selected');
+    }
+    // 配列の中身を昇順に並び替える
+    selectedDays = selectedDays.sort();
+    console.log(selectedDays);
   }
 
   renderCalendar();
