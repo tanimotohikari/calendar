@@ -1,10 +1,11 @@
 $(function() {
   const weeks = ['日', '月', '火', '水', '木', '金', '土'];
   const date = new Date();
-  const $prev = $('#prev');
-  const $next = $('#next');
-  const $calendar = $('#calendar');
+  const $prev = $('#js-btn-prev');
+  const $next = $('#js-btn-next');
+  const $calendar = $('#js-calendar');
 
+  let selectedDays = []; // 選択した希望日を格納する配列
   let currentYear = date.getFullYear();  // 年の取得
   let currentMonth = date.getMonth() + 1; // 返される値は 0～11なので+1する
   let lastMonthEndDate = new Date(currentYear, currentMonth - 1, 0) // 前月の最後の日
@@ -33,13 +34,23 @@ $(function() {
     let dayCount = 1; // 日にちのカウント
     let calendarHtml = ''; // HTMLを組み立てる変数
 
-    calendarHtml += `<h1 class='l-bottom'>${ currentYear }/${ currentMonth }</h1>`;
-    calendarHtml += `<table class='l-full l-calendar'>`;
+    calendarHtml += `<div class='calendar-header'>${ currentYear }年${ currentMonth }月</div>`;
+    calendarHtml += `<table id='js-calendar-table' class='calendar-table'>`;
+    calendarHtml += `<thead>`;
 
     // 曜日の行を作成
     for (let i = 0; i < weeks.length; i++) {
-      calendarHtml += `<td>${ weeks[i] }</td>`;
+      if (i === 0) {
+        calendarHtml += `<th class='calendar-sunday'>${ weeks[i] }</th>`;
+      } else if (i === 6) {
+        calendarHtml += `<th class='calendar-saturday'>${ weeks[i] }</th>`;
+      } else {
+        calendarHtml += `<th>${ weeks[i] }</th>`;
+      }
     }
+
+    calendarHtml += `</thead>`;
+    calendarHtml += `<tbody>`;
 
     for (let w = 0; w < 6; w++) {
       calendarHtml += '<tr>';
@@ -48,11 +59,11 @@ $(function() {
         if (w == 0 && d < startDay) {
           // 1行目で1日の曜日の前
           let num = lastMonthendDayCount - startDay + d + 1;
-          calendarHtml += `<td class='text-light'>${ num }</td>`;
+          calendarHtml += `<td class='text-light is-disable'>${ num }</td>`;
         } else if (dayCount > endDayCount) {
           // 末尾の日数を超えた場合
           let num = dayCount - endDayCount;
-          calendarHtml += `<td class='text-light'>${ num }</td>`;
+          calendarHtml += `<td class='text-light is-disable'>${ num }</td>`;
           dayCount++;
         } else {
           calendarHtml += `<td>${ dayCount }</td>`;
@@ -61,6 +72,7 @@ $(function() {
       }
       calendarHtml += '</tr>';
     }
+    calendarHtml += `</tbody>`;
     calendarHtml += '</table>';
 
     $calendar.html(calendarHtml);
@@ -76,8 +88,26 @@ $(function() {
     renderCalendar();
   }
 
+  function selectDay() {
+    let selectDay = $(this).text();
+    // 配列に同じ数値が入ってなかったら追加する
+    if(selectedDays.indexOf(selectDay) === -1) {
+      selectedDays.push(selectDay);
+      $(this).addClass('is-selected');
+    } else {
+      // 配列に同じ数値が入っていた場合は削除する
+      let position = selectedDays.indexOf(selectDay);
+      selectedDays.splice(position, 1); 
+      $(this).removeClass('is-selected');
+    }
+    // 配列の中身を昇順に並び替える
+    selectedDays = selectedDays.sort();
+    console.log(selectedDays);
+  }
+
   renderCalendar();
 
   $next.on('click', nextMonth);
   $prev.on('click', prevMonth);
+  $('#js-calendar-table td').on('click', selectDay);
 });

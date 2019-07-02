@@ -37,7 +37,7 @@
 	margin-bottom: 15px !important;
 }
 
-.l-bottom {
+.l-bottom-medium {
 	margin-bottom: 20px !important;
 }
 
@@ -50,21 +50,4 @@
 ----------*/
 .l-align-center {
 	text-align: center;
-}
-
-/*----------
-  contents
-----------*/
-
-.l-contents {
-	width: 500px;
-	margin: 0 auto;
-	padding: 20px;
-}
-
-/*----------
-	calendar
-----------*/
-.l-calendar {
-	height: 300px;
 }
