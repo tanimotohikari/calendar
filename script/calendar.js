@@ -8,13 +8,15 @@ $(function() {
   let selectedDays = []; // 選択した希望日を格納する配列
   let currentYear = date.getFullYear();  // 年の取得
   let currentMonth = date.getMonth() + 1; // 返される値は 0～11なので+1する
-  let lastMonthEndDate = new Date(currentYear, currentMonth - 1, 0) // 前月の最後の日
-  let lastMonthendDayCount = lastMonthEndDate.getDate() // 前月の末日
+  let thisMonth = date.getMonth(); //本日の日付を取得
+  let thisDay = date.getDay(); //本日の日付を取得
+  let lastMonthEndDate = new Date(currentYear, currentMonth - 1, 0); // 前月の最後の日
+  let lastMonthendDayCount = lastMonthEndDate.getDate(); // 前月の末日
 
-	// ▼new Date()で第一引数に年、第二引数に月、第三引数に-1で月の最初,0で月の最後を取得できる
-	// うるう年も簡単に判定できる　
+  // ▼new Date()で第一引数に年、第二引数に月、第三引数に-1で月の最初,0で月の最後を取得できる
+  // うるう年も簡単に判定できる　
   // Date(currentYear, currentMonth, 0).getDate() === 29
-  
+
   function renderCalendar() {
 
     if(currentMonth === 13) {
@@ -30,7 +32,7 @@ $(function() {
 
     let endDate = new Date(currentYear, currentMonth, 0);
     let endDayCount = endDate.getDate(); // 月の末日
-    
+
     let dayCount = 1; // 日にちのカウント
     let calendarHtml = ''; // HTMLを組み立てる変数
 
@@ -59,14 +61,18 @@ $(function() {
         if (w == 0 && d < startDay) {
           // 1行目で1日の曜日の前
           let num = lastMonthendDayCount - startDay + d + 1;
-          calendarHtml += `<td class='text-light is-disable'>${ num }</td>`;
+          calendarHtml += `<td class='text-disable is-disable'>${ num }</td>`;
         } else if (dayCount > endDayCount) {
           // 末尾の日数を超えた場合
           let num = dayCount - endDayCount;
-          calendarHtml += `<td class='text-light is-disable'>${ num }</td>`;
+          calendarHtml += `<td class='text-disable is-disable'>${ num }</td>`;
+          dayCount++;
+        } else if (thisDay > dayCount) {
+          // 本日より前の日程を選択できないようにする
+          calendarHtml += `<td class='text-disable is-disable'>${dayCount }</td>`;
           dayCount++;
         } else {
-          calendarHtml += `<td>${ dayCount }</td>`;
+          calendarHtml += `<td data-month='${currentMonth}' data-year='${currentYear }'>${ dayCount }</td>`;
           dayCount++;
         }
       }
