@@ -96,20 +96,21 @@ $(function() {
 
   function selectDay() {
     let selectDay = Number($(this).text());
-    // 配列に同じ数値が入ってなかったら追加する
-    if(selectedDays.indexOf(selectDay) === -1) {
-      selectedDays.push([currentYear, currentMonth, selectDay]);
+    let selectDate = ([currentYear, currentMonth, selectDay]).toString();
+    
+    if(selectedDays.indexOf(selectDate) === -1) {
+      // 配列に同じ数値が入ってなかったら追加する
+      selectedDays.push(selectDate);
       $(this).addClass('is-selected');
     } else {
-      // 配列に同じ数値が入っていた場合は削除する　配列の中の配列を検知できるとように改造する
-      // 今この処理は動いていない
-      let position = selectedDays.indexOf(selectDay);
-      selectedDays.splice(position, 1); 
+      // 配列に同じ数値が入っていた場合は削除する
+      let arrayIndex = selectedDays.indexOf(selectDate);
+      selectedDays.splice(arrayIndex, 1); 
       $(this).removeClass('is-selected');
     }
     console.log(selectedDays);
     // 配列の中身を昇順に並び替える うまくできてない
-    selectedDays = selectedDays.sort();
+    // selectedDays = selectedDays.sort();
   }
 
   renderCalendar();
