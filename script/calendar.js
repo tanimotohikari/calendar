@@ -82,6 +82,7 @@ $(function() {
     calendarHtml += '</table>';
 
     $calendar.html(calendarHtml);
+    checkAlreadySelect();
   }
 
   function nextMonth() {
@@ -108,14 +109,26 @@ $(function() {
       selectedDays.splice(arrayIndex, 1); 
       $(this).removeClass('is-selected');
     }
-    console.log(selectedDays);
     // 配列の中身を昇順に並び替える うまくできてない
-    // selectedDays = selectedDays.sort();
+    selectedDays = selectedDays.sort();
+  }
+
+  function checkAlreadySelect() {
+    if (selectedDays.length) {
+      let length = selectedDays.length;
+      let values = [];
+      console.log(selectedDays);
+      for (let index = 0; index < length; index++) {
+        values = selectedDays[index];
+        console.log(values);
+      }
+      //$(document).find('[data-month=""]')
+    }
   }
 
   renderCalendar();
 
   $next.on('click', nextMonth);
   $prev.on('click', prevMonth);
-  $('#js-calendar-table td').on('click', selectDay);
+  $(document).on('click', '#js-calendar-table td', selectDay);
 });
