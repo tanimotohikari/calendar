@@ -4,12 +4,12 @@ $(function() {
   const $prev = $('#js-btn-prev');
   const $next = $('#js-btn-next');
   const $calendar = $('#js-calendar');
+  const thisMonth = date.getMonth() + 1; //本日の日付を取得
+  const thisDay = date.getDay(); //本日の日付を取得
 
   let selectedDays = []; // 選択した希望日を格納する配列
   let currentYear = date.getFullYear();  // 年の取得
   let currentMonth = date.getMonth() + 1; // 返される値は 0～11なので+1する
-  let thisMonth = date.getMonth(); //本日の日付を取得
-  let thisDay = date.getDay(); //本日の日付を取得
   let lastMonthEndDate = new Date(currentYear, currentMonth - 1, 0); // 前月の最後の日
   let lastMonthendDayCount = lastMonthEndDate.getDate(); // 前月の末日
 
@@ -67,7 +67,7 @@ $(function() {
           let num = dayCount - endDayCount;
           calendarHtml += `<td class='text-disable is-disable'>${ num }</td>`;
           dayCount++;
-        } else if (thisDay > dayCount) {
+        } else if (thisDay > dayCount && thisMonth === currentMonth) {
           // 本日より前の日程を選択できないようにする
           calendarHtml += `<td class='text-disable is-disable'>${dayCount }</td>`;
           dayCount++;
@@ -95,20 +95,21 @@ $(function() {
   }
 
   function selectDay() {
-    let selectDay = $(this).text();
+    let selectDay = Number($(this).text());
     // 配列に同じ数値が入ってなかったら追加する
     if(selectedDays.indexOf(selectDay) === -1) {
-      selectedDays.push(selectDay);
+      selectedDays.push([currentYear, currentMonth, selectDay]);
       $(this).addClass('is-selected');
     } else {
-      // 配列に同じ数値が入っていた場合は削除する
+      // 配列に同じ数値が入っていた場合は削除する　配列の中の配列を検知できるとように改造する
+      // 今この処理は動いていない
       let position = selectedDays.indexOf(selectDay);
       selectedDays.splice(position, 1); 
       $(this).removeClass('is-selected');
     }
-    // 配列の中身を昇順に並び替える
-    selectedDays = selectedDays.sort();
     console.log(selectedDays);
+    // 配列の中身を昇順に並び替える うまくできてない
+    selectedDays = selectedDays.sort();
   }
 
   renderCalendar();
