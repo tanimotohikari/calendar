@@ -69,10 +69,10 @@ $(function() {
           dayCount++;
         } else if (thisDay > dayCount && thisMonth === currentMonth) {
           // 本日より前の日程を選択できないようにする
-          calendarHtml += `<td class='text-disable is-disable'>${dayCount }</td>`;
+          calendarHtml += `<td class='text-disable is-disable'>${ dayCount }</td>`;
           dayCount++;
         } else {
-          calendarHtml += `<td data-month='${currentMonth}' data-year='${currentYear }'>${ dayCount }</td>`;
+          calendarHtml += `<td data-month='${ currentMonth }' data-year='${ currentYear }'>${ dayCount }</td>`;
           dayCount++;
         }
       }
@@ -117,12 +117,17 @@ $(function() {
     if (selectedDays.length) {
       let length = selectedDays.length;
       let values = [];
-      console.log(selectedDays);
       for (let index = 0; index < length; index++) {
         values = selectedDays[index];
+        values = values.split(',');
         console.log(values);
+        $('#js-calendar-table').find('td').each(function(index, element) {
+          let year = $(element).data('year');
+          let month = $(element).data('month');
+          let day = $(element).text();
+          console.log(year);
+        });
       }
-      //$(document).find('[data-month=""]')
     }
   }
 
