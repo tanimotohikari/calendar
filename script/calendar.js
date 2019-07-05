@@ -61,15 +61,15 @@ $(function() {
         if (w == 0 && d < startDay) {
           // 1行目で1日の曜日の前
           let num = lastMonthendDayCount - startDay + d + 1;
-          calendarHtml += `<td class='text-disable is-disable'>${ num }</td>`;
+          calendarHtml += `<td class='text-disable is-disable' data-month='${currentMonth}' data-year='${currentYear }'>${ num }</td>`;
         } else if (dayCount > endDayCount) {
           // 末尾の日数を超えた場合
           let num = dayCount - endDayCount;
-          calendarHtml += `<td class='text-disable is-disable'>${ num }</td>`;
+          calendarHtml += `<td class='text-disable is-disable' data-month='${currentMonth}' data-year='${currentYear }'>${ num }</td>`;
           dayCount++;
         } else if (thisDay > dayCount && thisMonth === currentMonth) {
           // 本日より前の日程を選択できないようにする
-          calendarHtml += `<td class='text-disable is-disable'>${ dayCount }</td>`;
+          calendarHtml += `<td class='text-disable is-disable' data-month='${currentMonth}' data-year='${currentYear }'>${ dayCount }</td>`;
           dayCount++;
         } else {
           calendarHtml += `<td data-month='${ currentMonth }' data-year='${ currentYear }'>${ dayCount }</td>`;
@@ -98,7 +98,7 @@ $(function() {
   function selectDay() {
     let selectDay = Number($(this).text());
     let selectDate = ([currentYear, currentMonth, selectDay]).toString();
-    
+
     if(selectedDays.indexOf(selectDate) === -1) {
       // 配列に同じ数値が入ってなかったら追加する
       selectedDays.push(selectDate);
@@ -120,12 +120,22 @@ $(function() {
       for (let index = 0; index < length; index++) {
         values = selectedDays[index];
         values = values.split(',');
-        console.log(values);
         $('#js-calendar-table').find('td').each(function(index, element) {
-          let year = $(element).data('year');
-          let month = $(element).data('month');
-          let day = $(element).text();
-          console.log(year);
+          let $element = $(element);
+          // 日にちだけデータ型がstringなので数値に変換する
+          let year = $element.data('year');
+          let month = $element.data('month');
+          let day = Number($element.text());
+          values[index] = Number(values[index]);
+          // console.log(year + $.type(year));
+          // console.log(month + $.type(month));
+          // console.log(day + $.type(day));
+          // console.log(values[0] + $.type(values[0]));
+          // console.log(values[1] +$.type(values[1]));
+          // console.log(values[2] +$.type(values[2]));
+          if (year === values[0] && month === values[1] && day === values[2]) {
+            $element.addClass('is-selected');
+          }
         });
       }
     }
