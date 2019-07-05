@@ -94,3 +94,7 @@
 .is-selected {
   background-color: #f6ea79;
 }
+
+.is-hide {
+  display: none !important;
+}

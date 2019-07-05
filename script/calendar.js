@@ -4,6 +4,7 @@ $(function() {
   const $prev = $('#js-btn-prev');
   const $next = $('#js-btn-next');
   const $calendar = $('#js-calendar');
+  const thisYear = date.getFullYear(); //本日の日付を取得
   const thisMonth = date.getMonth() + 1; //本日の日付を取得
   const thisDay = date.getDay(); //本日の日付を取得
 
@@ -26,6 +27,9 @@ $(function() {
       currentMonth = 12;
       currentYear = currentYear - 1;
     }
+
+    let prevMonth = currentMonth -1;
+    let nextMonth = currentMonth + 1;
 
     let startDate = new Date(currentYear, currentMonth - 1, 1);
     let startDay = startDate.getDay(); // 月の最初の日の曜日を取得
@@ -61,15 +65,15 @@ $(function() {
         if (w == 0 && d < startDay) {
           // 1行目で1日の曜日の前
           let num = lastMonthendDayCount - startDay + d + 1;
-          calendarHtml += `<td class='text-disable is-disable' data-month='${currentMonth}' data-year='${currentYear }'>${ num }</td>`;
+          calendarHtml += `<td class='text-disable is-disable' data-month='${ prevMonth }' data-year='${ currentYear }'>${ num }</td>`;
         } else if (dayCount > endDayCount) {
           // 末尾の日数を超えた場合
           let num = dayCount - endDayCount;
-          calendarHtml += `<td class='text-disable is-disable' data-month='${currentMonth}' data-year='${currentYear }'>${ num }</td>`;
+          calendarHtml += `<td class='text-disable is-disable' data-month='${ nextMonth }' data-year='${ currentYear }'>${ num }</td>`;
           dayCount++;
-        } else if (thisDay > dayCount && thisMonth === currentMonth) {
-          // 本日より前の日程を選択できないようにする
-          calendarHtml += `<td class='text-disable is-disable' data-month='${currentMonth}' data-year='${currentYear }'>${ dayCount }</td>`;
+        } else if (thisDay >= dayCount - 2 && thisMonth === currentMonth) {
+          // 本日より前の日程は選択できないようにする※本日も含めた日から
+          calendarHtml += `<td class='text-disable is-disable' data-month='${currentMonth}' data-year='${currentYear}'>${dayCount}</td>`;
           dayCount++;
         } else {
           calendarHtml += `<td data-month='${ currentMonth }' data-year='${ currentYear }'>${ dayCount }</td>`;
@@ -83,6 +87,8 @@ $(function() {
 
     $calendar.html(calendarHtml);
     checkAlreadySelect();
+    showPrevBtn();
+    showNextBtn();
   }
 
   function nextMonth() {
@@ -127,17 +133,29 @@ $(function() {
           let month = $element.data('month');
           let day = Number($element.text());
           values[index] = Number(values[index]);
-          // console.log(year + $.type(year));
-          // console.log(month + $.type(month));
-          // console.log(day + $.type(day));
-          // console.log(values[0] + $.type(values[0]));
-          // console.log(values[1] +$.type(values[1]));
-          // console.log(values[2] +$.type(values[2]));
           if (year === values[0] && month === values[1] && day === values[2]) {
             $element.addClass('is-selected');
           }
         });
       }
+    }
+  }
+
+  function showNextBtn() {
+    //ボタンの表示非表示について考える
+    if (currentMonth == thisMonth + 3) {
+      $next.addClass('is-hide');
+    } else {
+      $next.removeClass('is-hide');
+    }
+  }
+
+  function showPrevBtn() {
+    $prev.removeClass('is-hide');
+    if (thisMonth < currentMonth && thisYear == currentYear) {
+      $prev.removeClass('is-hide');
+    } else {
+      $prev.addClass('is-hide');
     }
   }
 
