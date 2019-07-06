@@ -1,0 +1,17 @@
+/*----------
+  state
+----------*/
+
+.is-disable {
+  color: #999 !important;
+  pointer-events: none;
+  background-color: #d3d3d3;
+}
+
+.is-selected {
+  background-color: #f6ea79;
+}
+
+.is-hide {
+  display: none !important;
+}

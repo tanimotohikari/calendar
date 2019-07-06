@@ -1,0 +1,11 @@
+/*----------
+  utility
+----------*/
+
+.text-disable {
+  color: #999 !important;
+}
+
+.text-light {
+	color: #ccc !important;
+}
