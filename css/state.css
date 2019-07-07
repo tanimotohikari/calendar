@@ -2,7 +2,7 @@
   state
 ----------*/
 
-.is-disable {
+.is-disabled {
   color: #999 !important;
   pointer-events: none;
   background-color: #d3d3d3;

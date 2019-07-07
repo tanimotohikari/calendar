@@ -66,15 +66,15 @@ $(function() {
         if (w == 0 && d < startDay) {
           // 1行目で1日の曜日の前
           let num = lastMonthendDayCount - startDay + d + 1;
-          calendarHtml += `<td class='text-disable is-disable' data-month='${ prevMonth }' data-year='${ currentYear }'>${ num }</td>`;
+          calendarHtml += `<td class='text-disable is-disabled' data-month='${ prevMonth }' data-year='${ currentYear }'>${ num }</td>`;
         } else if (dayCount > endDayCount) {
           // 末尾の日数を超えた場合
           let num = dayCount - endDayCount;
-          calendarHtml += `<td class='text-disable is-disable' data-month='${ nextMonth }' data-year='${ currentYear }'>${ num }</td>`;
+          calendarHtml += `<td class='text-disable is-disabled' data-month='${ nextMonth }' data-year='${ currentYear }'>${ num }</td>`;
           dayCount++;
         } else if (thisDay >= dayCount - 2 && thisMonth === currentMonth) {
           // 本日より前の日程は選択できないようにする※本日も含めた日から
-          calendarHtml += `<td class='text-disable is-disable' data-month='${currentMonth}' data-year='${currentYear}'>${dayCount}</td>`;
+          calendarHtml += `<td class='text-disable is-disabled' data-month='${currentMonth}' data-year='${currentYear}'>${dayCount}</td>`;
           dayCount++;
         } else {
           calendarHtml += `<td data-month='${ currentMonth }' data-year='${ currentYear }'>${ dayCount }</td>`;
