@@ -8,18 +8,23 @@
   <link rel='stylesheet' href='css/reset.css'>
   <link rel='stylesheet' href='css/base.css'>
   <link rel='stylesheet' href='css/layout.css'>
-  <link rel='stylesheet' href='css/module.css'>
+	<link rel='stylesheet' href='css/module.css'>
+	<link rel='stylesheet' href='css/state.css'>
+	<link rel='stylesheet' href='css/utility.css'>
   <script src='script/jquery-3.4.0.min.js'></script>
   <script src='script/calendar.js'></script>
 </head>
 <body>
   <section class='section'>
     <div class='section-container'>
-      <div id='js-calendar' class='l-bottom-medium'></div>
-      <div class='l-half-column clearfix'>
-        <p id='js-btn-prev' class='btn l-align-center is-hide'>前の月</p>
-        <p id='js-btn-next' class='btn l-align-center'>次の月</p>
-      </div>
+      <div class='l-bottom-medium'>
+				<div class='calendar-heading'>
+					<p id='js-btn-prev' class='calendar-btn calendar-btn-left l-align-center is-hide'></p>
+					<p id='js-calendar-title' class='calendar-heading-title'></p>
+					<p id='js-btn-next' class='calendar-btn calendar-btn-right l-align-center'></p>
+				</div>
+				<div id='js-calendar'></div>
+			</div>
     </div>
   </section>
 </body>

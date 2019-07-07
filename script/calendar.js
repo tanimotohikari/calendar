@@ -4,6 +4,7 @@ $(function() {
   const $prev = $('#js-btn-prev');
   const $next = $('#js-btn-next');
   const $calendar = $('#js-calendar');
+  const $calendarTitle = $('#js-calendar-title');
   const thisYear = date.getFullYear(); //本日の日付を取得
   const thisMonth = date.getMonth() + 1; //本日の日付を取得
   const thisDay = date.getDay(); //本日の日付を取得
@@ -13,6 +14,7 @@ $(function() {
   let currentMonth = date.getMonth() + 1; // 返される値は 0～11なので+1する
   let lastMonthEndDate = new Date(currentYear, currentMonth - 1, 0); // 前月の最後の日
   let lastMonthendDayCount = lastMonthEndDate.getDate(); // 前月の末日
+  let calendarTitle = `${ currentYear }年${ currentMonth }月`;
 
   // ▼new Date()で第一引数に年、第二引数に月、第三引数に-1で月の最初,0で月の最後を取得できる
   // うるう年も簡単に判定できる　
@@ -40,7 +42,6 @@ $(function() {
     let dayCount = 1; // 日にちのカウント
     let calendarHtml = ''; // HTMLを組み立てる変数
 
-    calendarHtml += `<div class='calendar-header'>${ currentYear }年${ currentMonth }月</div>`;
     calendarHtml += `<table id='js-calendar-table' class='calendar-table'>`;
     calendarHtml += `<thead>`;
 
@@ -85,10 +86,16 @@ $(function() {
     calendarHtml += `</tbody>`;
     calendarHtml += '</table>';
 
-    $calendar.html(calendarHtml);
+    $calendar.html(calendarHtml);    
+    setTitle(currentYear, currentMonth);
     checkAlreadySelect();
     showPrevBtn();
     showNextBtn();
+  }
+
+  function setTitle(currentYear, currentMonth) {
+    calendarTitle = `${ currentYear }年${ currentMonth }月`;
+    $calendarTitle.html(calendarTitle);
   }
 
   function nextMonth() {
@@ -159,6 +166,7 @@ $(function() {
     }
   }
 
+  setTitle(currentYear, currentMonth);
   renderCalendar();
 
   $next.on('click', nextMonth);

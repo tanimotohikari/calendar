@@ -14,7 +14,7 @@
   calendar
 ----------*/
 
-.calendar-header {
+.calendar-heading {
   text-align: center;
   background-color: #e9e9e9;
   padding: 15px;
@@ -23,7 +23,7 @@
   border-bottom: none;
 }
 
-.calendar-header-title {
+.calendar-heading-title {
 	font-weight: bold;
   font-size: 20px;
 }
