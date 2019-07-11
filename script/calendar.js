@@ -112,6 +112,10 @@ $(function() {
     let selectDay = Number($(this).text());
     let selectDate = ([currentYear, currentMonth, selectDay]).toString();
 
+    if(selectedDays.length > 0) {
+      selectedDays = [];
+      
+    }
     if(selectedDays.indexOf(selectDate) === -1) {
       // 配列に同じ数値が入ってなかったら追加する
       selectedDays.push(selectDate);
