@@ -112,22 +112,22 @@ $(function() {
     let selectDay = Number($(this).text());
     let selectDate = ([currentYear, currentMonth, selectDay]).toString();
 
-    if(selectedDays.length > 0) {
-      selectedDays = [];
-      
-    }
-    if(selectedDays.indexOf(selectDate) === -1) {
-      // 配列に同じ数値が入ってなかったら追加する
-      selectedDays.push(selectDate);
-      $(this).addClass('is-selected');
-    } else {
-      // 配列に同じ数値が入っていた場合は削除する
-      let arrayIndex = selectedDays.indexOf(selectDate);
-      selectedDays.splice(arrayIndex, 1); 
-      $(this).removeClass('is-selected');
-    }
+    $('#js-calendar-table td').removeClass('is-selected');
+    $(this).addClass('is-selected');
+    console.log(selectDate);
+    // ここの処理は今回の仕様ではいらないのでコメントアウト
+    // if(selectedDays.indexOf(selectDate) === -1) {
+    //   // 配列に同じ数値が入ってなかったら追加する
+    //   selectedDays.push(selectDate);
+    //   $(this).addClass('is-selected');
+    // } else {
+    //   // 配列に同じ数値が入っていた場合は削除する
+    //   let arrayIndex = selectedDays.indexOf(selectDate);
+    //   selectedDays.splice(arrayIndex, 1); 
+    //   $(this).removeClass('is-selected');
+    // }
     // 配列の中身を昇順に並び替える うまくできてない
-    selectedDays = selectedDays.sort();
+    // selectedDays = selectedDays.sort();
   }
 
   function checkAlreadySelect() {
