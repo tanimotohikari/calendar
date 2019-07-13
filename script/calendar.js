@@ -114,7 +114,7 @@ $(function() {
 
     $('#js-calendar-table td').removeClass('is-selected');
     $(this).addClass('is-selected');
-    console.log(selectDate);
+
     // ここの処理は今回の仕様ではいらないのでコメントアウト
     // if(selectedDays.indexOf(selectDate) === -1) {
     //   // 配列に同じ数値が入ってなかったら追加する
@@ -131,6 +131,8 @@ $(function() {
   }
 
   function checkAlreadySelect() {
+    // カレンダーを別の月に切り替えた時に選択されたものがリセットされる
+    // 複数選択方式から単一選択に変えたため
     if (selectedDays.length) {
       let length = selectedDays.length;
       let values = [];
