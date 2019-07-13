@@ -3,9 +3,9 @@
 ----------*/
 
 .is-disabled {
-  color: #999 !important;
+  color: #ddd !important;
   pointer-events: none;
-  background-color: #d3d3d3;
+  background-color: #fff;
 }
 
 .is-selected {
