@@ -4,17 +4,22 @@ $(function() {
   const $next = $('#js-btn-next');
   const $calendar = $('#js-calendar');
   const $calendarTitle = $('#js-calendar-title');
-
   const date = new Date();
   const thisYear = date.getFullYear(); //本日の日付を取得
   const thisMonth = date.getMonth() + 1; //本日の日付を取得
   const thisDay = date.getDate(); //本日の日付を取得
+
+  //▼これは定数にする？
+  //$('#js-calendar-table td')
+
   let currentYear = date.getFullYear();  // 年の取得
   let currentMonth = date.getMonth() + 1; // 返される値は 0～11なので+1する
   let lastMonthEndDate = new Date(currentYear, currentMonth - 1, 0); // 前月の最後の日
   let lastMonthendDayCount = lastMonthEndDate.getDate(); // 前月の末日
   let calendarTitle = `${ currentYear }年${ currentMonth }月`;
   let selectDateStatus = false; // デフォルトの日付から選択された場合にtrueに変更される
+  let selectedDay = '';
+  let selectedDate = ([currentYear, currentMonth, thisDay + 2 ]).toString();
 
   // ▼カレンダーを複数選択方式にするときは下記で定義した配列を使用する
   // let selectedDays = []; // 選択した希望日を格納する配列
@@ -35,13 +40,10 @@ $(function() {
 
     let prevMonth = currentMonth -1;
     let nextMonth = currentMonth + 1;
-
     let startDate = new Date(currentYear, currentMonth - 1, 1);
     let startDay = startDate.getDay(); // 月の最初の日の曜日を取得
-
     let endDate = new Date(currentYear, currentMonth, 0);
     let endDayCount = endDate.getDate(); // 月の末日
-
     let dayCount = 1; // 日にちのカウント
     let calendarHtml = ''; // HTMLを組み立てる変数
 
@@ -115,16 +117,28 @@ $(function() {
   }
 
   function selectDay() {
-    console.log('hoho');
-    let selectDay = Number($(this).text());
-    let selectDate = ([currentYear, currentMonth, selectDay]).toString();
+    selectedDay = Number($(this).text());
+    selectedDate = ([currentYear, currentMonth, selectedDay]).toString();
     $('#js-calendar-table td').removeClass('is-selected');
     $(this).addClass('is-selected');
     selectDateStatus = true;
   }
 
   function checkAlreadySelect() {
-    console.log('hoge');
+    let values = [];
+    let elements = [];
+    values = selectedDate.split(',');
+    $('#js-calendar-table').find('td:not(.is-disabled)').each(function(index, element) {
+      let $element = $(element);
+      let year = $element.data('year');
+      let month = $element.data('month');
+      let day = Number($element.text());
+      // 日にちだけデータ型がstringなので数値に変換する
+      values[index] = Number(values[index]);
+      if (year === values[0] && month === values[1] && day === values[2]) {
+        $element.addClass('is-selected');
+      }
+    });
   }
 
   // ▼カレンダーを複数選択方式にするときは下記の処理を使用する
@@ -169,7 +183,6 @@ $(function() {
   //       });
   //     }
   //   }
-    
   // }
 
   function showNextBtn() {
